@@ -3,6 +3,7 @@ const Customer = require("../models/customer");
 const Staff = require("../models/staff");
 const Position = require("../models/position");
 
+// middleware xác minh người dùng
 async function logged(req, res, next) {
   const token = req.headers.authorization.replace("bearer ", "");
   if (!token) {
@@ -28,6 +29,7 @@ async function logged(req, res, next) {
   }
 }
 
+// middleware xác minh nhân viên
 async function auth(req, res, next) {
   const token = req.headers.authorization.replace("bearer ", "");
   if (!token) {
@@ -53,6 +55,7 @@ async function auth(req, res, next) {
   }
 }
 
+// middleware xác minh quản lý
 async function isManager(req, res, next) {
   try {
     if (!req.auth) {

@@ -47,6 +47,8 @@ customerRouter.put("/:id", async (req, ses) => {
 
 customerRouter.post(
   "/signup",
+
+  // middleware kiểm tra sự tồn tại của người dùng
   async (req, res, next) => {
     const customer = await Customer.findOne({
       where: { userName: req.body.userName },
@@ -79,6 +81,8 @@ customerRouter.post(
 
 customerRouter.post(
   "/login",
+
+  // middleware xác thực người dùng
   async (req, res, next) => {
     const customer = await Customer.findOne({
       where: { userName: req.body.userName },
@@ -103,6 +107,7 @@ customerRouter.post(
     try {
       const abc = req.auth;
       delete abc.password;
+      // tạo 1 jwt trả về client
       const token = jwt.sign(
         {
           id: abc.id,
